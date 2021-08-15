@@ -6,9 +6,15 @@ import datetime
 def show_game_board():
     for i in range(3):
         for j in range(3):
-            print(game[i][j] , end = ' ')
+            if game[i][j] == 'X':
+                print(Fore.RED + game[i][j] , end = ' ')
+            elif game[i][j] == 'O':
+                print(Fore.BLUE + game[i][j] , end = ' ')
+            else:
+                print(Fore.WHITE + game[i][j] , end = ' ')
             print(Style.RESET_ALL , end = ' ')
         print()
+
 
 def exit_play():
     finish = datetime.datetime.now()
@@ -31,14 +37,13 @@ def check():
         if game[0][j] == 'O' and game[1][j] == 'O' and game[2][j]== 'O':
             print('Player2 Win! ')
             exit_play()     
-    for i in range(3):
-        for j in range(3):
-            if i==j and game[i][j]== 'X':
-                print('Player1 Win! ')
-                exit_play()
-            if i==j and game[i][j] == 'O':
-                print('Player2 Win! ')
-                exit_play()
+    if game[0][0] == game[1][1] == game[2][2]:
+        if game[0][0] == 'X':
+            print('Player1 Win! ')
+            exit_play()
+        if game[0][0] == 'O':
+            print('Player2 Win! ')
+            exit_play()
     if game[0][2] == 'X' and game[1][1] == 'X' and game[2][0] == 'X':
         print('Player1 Win! ')
         exit_play()
@@ -55,7 +60,7 @@ def check_player1():
         col = int(input('Enter column: '))
         if 0 <= row <= 2 and 0 <= col <= 2:
             if game[row][col] == '_':
-                game[row][col] = Fore.RED + 'X'
+                game[row][col] = 'X'
                 break
             else:
                 print('Cell is not empty! ')
@@ -68,7 +73,7 @@ def check_player2():
         col = int(input('Enter column: '))
         if 0 <= row <= 2 and 0 <= col <= 2:
             if game[row][col] == '_':
-                game[row][col] = Fore.BLUE + 'O'
+                game[row][col] = 'O'
                 break
             else:
                 print('Cell is not empty! ')
@@ -81,7 +86,7 @@ def check_system():
         col = random.randint(0,2)
         if 0 <= row <= 2 and 0 <= col <= 2:
             if game[row][col] == '_':
-                game[row][col] = Fore.BLUE + 'O'
+                game[row][col] = 'O'
                 break
             else:
                 print('Cell is not empty! ')
